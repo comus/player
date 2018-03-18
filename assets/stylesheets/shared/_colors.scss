@@ -1,0 +1,35 @@
+$white:                                 #fff;
+$black:                                 #000;
+
+$gray-base:                             #d5e4e4;
+$gray-400:                              mix($white, $gray-base, 5%);
+$gray-500:                              $gray-base;
+
+$blue-base:                             #1e4384;
+$blue-400:                              mix($white, $blue-base, 5%);
+$blue-500:                              $blue-base;
+$blue-600:                              mix($black, $blue-base, 5%);
+$blue-700:                              mix($black, $blue-base, 15%);
+
+$green-base:                            #74cd9c;
+$green-400:                             mix($white, $green-base, 5%);
+$green-500:                             $green-base;
+$green-600:                             mix($black, $green-base, 5%);
+
+$aqua-base:                             #13b2b5;
+$aqua-400:                              mix($white, $aqua-base, 5%);
+$aqua-500:                              $aqua-base;
+$aqua-600:                              mix($black, $aqua-base, 5%);
+
+$petrol-base:                           #334d5c;
+$petrol-400:                            mix($white, $petrol-base, 5%);
+$petrol-500:                            $petrol-base;
+$petrol-600:                            mix($black, $petrol-base, 5%);
+
+$body-bg:                               $gray-500;
+$body-color:                            $petrol-600;
+
+$link-color:                            $blue-500;
+$link-decoration:                       none;
+$link-hover-color:                      $blue-700;
+$link-hover-decoration:                 underline;
