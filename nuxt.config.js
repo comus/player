@@ -39,9 +39,9 @@ module.exports = {
   },
   modules: ['@nuxtjs/proxy'],
   plugins: ['~/assets/icons.js'],
-  // proxy: [
-  //   process.env.API_URL,
-  // ],
+  proxy: [
+    process.env.API_URL,
+  ],
   watchers: {
     webpack: {
       poll: true, // Enable webpackDevMiddleware file polling for Windows
