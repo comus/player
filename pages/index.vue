@@ -6,7 +6,13 @@
         alt="">
       <span class="pc-brand__text">{{ title }}</span>
     </div>
-    <pc-drawing-pad v-model="drawing"/>
+    <pc-drawing-pad v-model="drawing" ref="pad"/>
+    <pc-button
+      label="undo"
+      @click="undo()" />
+      <pc-button
+        label="clear"
+        @click="clear()" />
     <div style="display: flex; flex-direction: row; transform: scale(0.5);">
       <pc-drawing-pad
         v-model="normalizedDrawing"
@@ -73,6 +79,16 @@ export default {
   watch: {
     drawing(drawing) {
       guess(this, drawing);
+    },
+  },
+  
+  methods: {
+    undo() {
+      this.$refs.pad.undo();
+    },
+    
+    clear() {
+      this.$refs.pad.clear();
     },
   },
 };

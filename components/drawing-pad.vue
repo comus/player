@@ -36,25 +36,11 @@ export default {
   watch: {
     value(value) {
       if (!this.readOnly) return;
-      this.sketch.clear();
-      
-      value.forEach((touch, index) => {
-        const strokes = zip(touch[0], touch[1]);
-
-        strokes.forEach((stroke, index) => {
-          if (index === 0) return;
-
-          const prevStroke = strokes[index - 1];
-
-          this.sketch.lineWidth = 3;
-          this.sketch.beginPath();
-          this.sketch.moveTo(prevStroke[0], prevStroke[1]);
-          this.sketch.lineTo(stroke[0], stroke[1]);
-          this.sketch.stroke();
-          });
-      });
+      this.redraw();
     },
   },
+  
+  
 
   mounted() {
     const Sketch = require('sketch-js'); // eslint-disable-line
@@ -88,6 +74,39 @@ export default {
       },
     });
   },
+  
+  methods: {
+    undo() {
+      this.value.pop();
+      this.redraw();
+    },
+    
+    redraw() {
+      this.sketch.clear();
+      this.value.forEach((touch, index) => {
+        const strokes = zip(touch[0], touch[1]);
+
+        strokes.forEach((stroke, index) => {
+          if (index === 0) return;
+
+          const prevStroke = strokes[index - 1];
+
+          this.sketch.lineWidth = 3;
+          this.sketch.beginPath();
+          this.sketch.moveTo(prevStroke[0], prevStroke[1]);
+          this.sketch.lineTo(stroke[0], stroke[1]);
+          this.sketch.stroke();
+          });
+      });
+    },
+    
+    clear() {
+      //this.value = [];
+      
+      this.value.splice(0,this.value.length)
+      this.redraw();
+    },
+  }
 };
 </script>
 
