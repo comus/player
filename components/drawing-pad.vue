@@ -11,7 +11,7 @@ export default {
   props: {
     value: {
       type: Array,
-      default: () => [[], []],
+      default: () => [],
     },
 
     readOnly: {
@@ -37,18 +37,21 @@ export default {
     value(value) {
       if (!this.readOnly) return;
       this.sketch.clear();
-      const strokes = zip(value[0], value[1]);
+      
+      value.forEach((touch, index) => {
+        const strokes = zip(touch[0], touch[1]);
 
-      strokes.forEach((stroke, index) => {
-        if (index === 0) return;
+        strokes.forEach((stroke, index) => {
+          if (index === 0) return;
 
-        const prevStroke = strokes[index - 1];
+          const prevStroke = strokes[index - 1];
 
-        this.sketch.lineWidth = 3;
-        this.sketch.beginPath();
-        this.sketch.moveTo(prevStroke[0], prevStroke[1]);
-        this.sketch.lineTo(stroke[0], stroke[1]);
-        this.sketch.stroke();
+          this.sketch.lineWidth = 3;
+          this.sketch.beginPath();
+          this.sketch.moveTo(prevStroke[0], prevStroke[1]);
+          this.sketch.lineTo(stroke[0], stroke[1]);
+          this.sketch.stroke();
+          });
       });
     },
   },
@@ -71,10 +74,16 @@ export default {
           this.moveTo(touch.ox, touch.oy);
           this.lineTo(touch.x, touch.y);
           this.stroke();
-
-          pad.value[0].push(touch.x);
-          pad.value[1].push(touch.y);
+          
+          pad.value[pad.value.length-1][0].push(touch.x);
+          pad.value[pad.value.length-1][1].push(touch.y);
+          
           pad.$emit('input', pad.value);
+        }
+      },
+      touchstart() {
+        if (!pad.readOnly && this.dragging) {
+          pad.value.push([[], []]);
         }
       },
     });
